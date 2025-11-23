@@ -1,18 +1,17 @@
-'use client';
+'use client'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import React from 'react'
 
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import React, { ReactNode } from 'react';
-
-interface ThemeProviderProps {
-  children: ReactNode;
-}
-
-export default function ThemeProvider({ children }: ThemeProviderProps) {
+export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
+    // 'attribute="class"' tells next-themes to apply the 'dark' class to the <html> element.
     <NextThemesProvider attribute="class" defaultTheme="system">
-      <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
-      {children}
+      {/* CRITICAL FIX: Removed the specific Tailwind classes (bg-white, dark:bg-gray-900, etc.)
+        They should be applied globally in layout.tsx for the body.
+      */}
+      <div> 
+        {children}
       </div>
     </NextThemesProvider>
-  );
+  )
 }
